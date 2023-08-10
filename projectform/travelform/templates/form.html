@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MOVE FORM</title>
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4"><center>MOVE FORM</center></h1>
+        <form method="post" action="{% url 'Form' %}">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label for="p_no">P.NO.:</label>
+                    <input type="text" class="form-control" id="p_no" name="p_no" placeholder="Enter P_no"  value="{{ existing_data.p_no|default:'' }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Name" value="{{ existing_data.name|default:'' }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="designation">Designation:</label>
+                    <input type="text" class="form-control" id="designation" placeholder="Enter Designation" name="designation" value="{{ existing_data.designation|default:'' }}" required>
+                </div>
+            </div>
+
+
+            <div class="form-row mt-3">
+                <div class="col-md-4">
+                    <label for="division">Division:</label>
+                    <input type="text" class="form-control" id="division" placeholder="Enter P_no" name="division" value="{{ existing_data.division|default:'' }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="payscale">Payscale:</label>
+                    <input type="text" class="form-control" id="payscale" placeholder="Enter Payscale" name="payscale" value="{{ existing_data.payscale|default:'' }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="cnic_no">CNIC No:</label>
+                    <input type="text" class="form-control" id="cnic_no" name="cnic_no" placeholder="Enter CNIC NO" value="{{ existing_data.cnic_no|default:'' }}" required>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+            <div class ="col-md-4">
+                <label for="passport">Passport No.</label>
+                <input type="text" class="form-control" id="passport" name="passport" placeholder="Passport No" value="{{ existing_data.passport|default:'' }}">
+
+            </div>
+            <div class ="col-md-4">
+                <label for="Mobile">Mobile No.</label>
+                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile No" value="{{ existing_data.mobile|default:'' }}" required>
+
+            </div>
+            <div class="col-md-4">
+                <label for="project">Project:</label>
+                <select class="form-control" id="project" name="project" placeholder="Enter Project" value="{{ existing_data.project|default:'' }}" required>
+                    <option value="DP">DP</option>
+                    <option value="KRL">KRL</option>
+                </select>
+            </div>
+                </div>
+            <div class="form-row mt-3">
+             <div class="col-md-4">
+                    <label for="time_of_move">Time of Move:</label>
+                    <select class="form-control" id="time_of_move" name="time_of_move"  required>
+                        <option value="morning">Morning</option>
+                        <option value="evening">Evening</option>
+                        <option value="night">Night</option>
+                    </select>
+             </div>
+            <div class="col-md-4">
+                    <label for="time_of_return">Time of Return:</label>
+                    <select class="form-control" id="time_of_return" name="time_of_return" required>
+                        <option value="morning">Morning</option>
+                        <option value="evening">Evening</option>
+                        <option value="night">Night</option>
+                    </select>
+             </div>
+                <div class="col-md-4">
+                    <label for="mode of travel">Mode of Travel:</label>
+                    <select class="form-control" id="mode of travel" name="mode_of_travel" required>
+                        <option value="Air">Air</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Road">Road</option>
+                        <option value="Train">Train</option>
+                    </select>
+                </div>
+            </div>
+             <div class="form-row mt-3">
+                <div class="col-md-3">
+                    <label for="date_of_moves">Date of Moves:</label>
+                    <input type="date" class="form-control" id="date_of_moves" name="date_of_moves"  onchange="calculateDateDifference(); calculateDuration();" placeholder="Enter Dates" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="date_of_return">Date of Return:</label>
+                    <input type="date" class="form-control" id="date_of_return" name="date_of_return" onchange="calculateDuration(); calculateDateDifference();" placeholder="Enter Dates" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="calculated_dates">Calculated Dates:</label>
+                    <input type="text" class="form-control" id="calculated_dates" name="calculated_dates" placeholder="Dates"  readonly>
+                </div>
+            </div>
+
+            <div class="form-row mt-3">
+                <div class="col-md-4">
+                    <label for="route">Route:</label>
+                    <input type="text" class="form-control" id="route" name="route" onblur="fillRoute()" placeholder="Route" required>
+                </div>
+
+                <div class="col-md-4">
+                <label for="destination">Destination:</label>
+                <input type="text" class="form-control" id="destination" name="destination" onblur="fillRoute()" placeholder="Destination" required>
+                </div>
+                <div class="col-md-4">
+                <label for="Category">Category:</label>
+                <select class="form-control" id="Category" name="category" >
+                        <option value="Official">Official</option>
+                        <option value="Private">Private</option>
+                        <option value="Open">Open</option>
+                        <option value="Classified">Classified</option>
+                    </select>
+
+                </div>
+            </div>
+             <div class="form-row mt-3">
+            <div class="col-md-4">
+                <label for="pov">Purpose of Visit:</label>
+                <input type="text" class="form-control" id="pov" name="pov" placeholder="Text" required>
+                </div>
+
+    <div class="col-md-4">
+        <label for="duration_days">Duration of Stay (Days):</label>
+        <input type="text" class="form-control" id="duration_days" name="duration_days" placeholder="Days" readonly>
+    </div>
+    <div class="col-md-4">
+        <label for="duration_nights">Duration of Stay (Nights):</label>
+        <input type="text" class="form-control" id="duration_nights" name="duration_nights" placeholder="Nights" readonly>
+    </div>
+</div>
+            <div class="form-row mt-3">
+            <div class="col-md-4">
+                    <label for="relatedpro">Related Project:</label>
+                    <select class="form-control" id="relatedpro" name="relatedpro">
+                        <option value="">1</option>
+                        <option value="">2</option>
+
+                    </select>
+                </div>
+
+            <div class="col-md-4">
+                    <label for="fundingsources">Funding Sources:</label>
+                    <input type="textarea" class="form-control" id="fundingsources" name="fundingsources" placeholder="Text">
+
+                </div>
+                <div class="col-md-4" class="form-group">
+                <label for="advance">Advance:</label>
+                <select class="form-control" id="advance" name="advance" >
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            </div>
+            {{ form.as_p }}
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary px-4">Submit</button>
+                <button type="button" class="btn btn-secondary px-4" onclick="logout()">Logout</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery scripts here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+ const currentLocation = 'CurrentLocation';
+
+    function calculateDateDifference() {
+        const dateOfMoves = new Date(document.getElementById('date_of_moves').value);
+        const dateOfReturn = new Date(document.getElementById('date_of_return').value);
+
+        if (isNaN(dateOfMoves) || isNaN(dateOfReturn)) {
+            document.getElementById('calculated_dates').value = '';
+        } else {
+            const timeDiff = Math.abs(dateOfReturn - dateOfMoves);
+            const diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            document.getElementById('calculated_dates').value = `Calculated: ${diffDays} days`;
+        }
+    }
+    function fillRoute() {
+    const routeInput = document.getElementById('route');
+    const destinationInput = document.getElementById('destination');
+
+    const routeValue = routeInput.value.trim();
+    const destinationValue = destinationInput.value.trim();
+
+    if (routeValue && destinationValue) {
+        routeInput.value = `${routeValue} - ${destinationValue} - ${routeValue}`;
+    }
+}
+
+
+    function calculateDuration() {
+        const dateOfMoves = new Date(document.getElementById('date_of_moves').value);
+        const dateOfReturn = new Date(document.getElementById('date_of_return').value);
+        const timeOfMove = document.getElementById('time_of_move').value;
+
+        if (!isNaN(dateOfMoves) && !isNaN(dateOfReturn)) {
+            const timeDiff = Math.abs(dateOfReturn - dateOfMoves);
+            const diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+            const durationDays = diffDays;
+            const durationNights = timeOfMove === 'morning' ? diffDays : diffDays - 1;
+
+            document.getElementById('duration_days').value = durationDays;
+            document.getElementById('duration_nights').value = durationNights;
+        } else {
+            document.getElementById('duration_days').value = '';
+            document.getElementById('duration_nights').value = '';
+        }
+    }
+    function logout() {
+            // Redirect to the login page
+            window.location.href = '{% url "login" %}';
+        }
+</script>
+</body>
+</html>
